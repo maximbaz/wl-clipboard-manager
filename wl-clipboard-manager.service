@@ -1,0 +1,9 @@
+[Unit]
+Description=Clipboard manager daemon
+
+[Service]
+ExecStart=/usr/bin/wl-clipboard-manager daemon
+Restart=always
+
+[Install]
+WantedBy=default.target
