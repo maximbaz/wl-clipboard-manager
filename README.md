@@ -23,6 +23,8 @@ It is currently heavily dependent on specific tools that I use, but I don't oppo
 
 On Arch Linux you can use [wl-clipboard-manager](https://aur.archlinux.org/packages/wl-clipboard-manager/) package.
 
+Alternatively, use `sudo make install`.
+
 ## Usage
 
 - Start the daemon by running `wl-clipboard-manager daemon` or a systemd user service
