@@ -19,10 +19,10 @@ elif [ "$1" = "on-copy" ]; then
     fdupes -idN .
     find . -type f -size 0 -delete
     find . -type f -size +10000000c -delete
-    find . -type f -print0 | sort -zn | head -z -n -1000 | xargs -r -0 rm
+    find . -type f -print0 | sort -zn | head -z -n -10000 | xargs -r -0 rm
 elif [ "$1" = "dmenu" ]; then
     fzf_preview="--preview-window=down:70%:wrap --preview='[ -f {} ] && viu -h 27 {} 2>/dev/null || echo {} | bat -l bash --color always -pp'"
-    find . -type f -print0 | sort -znr | while IFS= read -r -d '' file; do
+    find . -type f -printf '%P\0' | sort -znr | while IFS= read -r -d '' file; do
         if [[ "$file" =~ \.(plain|x-python)$ ]]; then
             cat "$file"
         else
