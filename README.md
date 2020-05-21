@@ -17,3 +17,8 @@ It is currently heavily dependent on specific tools that I use, but I don't oppo
 - [viu](https://github.com/atanunq/viu) - for image preview that can work in a terminal
 - [bat](https://github.com/sharkdp/bat) - for colorizing text
 - [fzf](https://github.com/junegunn/fzf) - current preview syntax depends on `--preview-window` from `fzf`
+- [fdupes](https://github.com/adrianlopezroche/fdupes) - to delete duplicate entries
+
+## Installation
+
+On Arch Linux you can use [wl-clipboard-manager](https://aur.archlinux.org/packages/wl-clipboard-manager/) package.
