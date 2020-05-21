@@ -22,3 +22,9 @@ It is currently heavily dependent on specific tools that I use, but I don't oppo
 ## Installation
 
 On Arch Linux you can use [wl-clipboard-manager](https://aur.archlinux.org/packages/wl-clipboard-manager/) package.
+
+## Usage
+
+- Start the daemon by running `wl-clipboard-manager daemon` or a systemd user service
+- Launch dmenu using `wl-clipboard-manager dmenu`
+- To copy sensitive text without saving it in clipboard history, use `wl-clipboard-manager lock; <your-command>; wl-clipboard-manager unlock`
