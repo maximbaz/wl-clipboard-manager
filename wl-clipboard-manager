@@ -1,0 +1,45 @@
+#!/bin/bash
+
+workdir="${XDG_DATA_HOME:-$HOME/.local/share/wl-clipboard-manager/history}"
+mkdir -p "$workdir"
+cd "$workdir"
+
+if [ "$1" = "daemon" ]; then
+    wl-paste -w $0 on-copy
+elif [ "$1" = "lock" ]; then
+    touch .lock
+elif [ "$1" = "unlock" ]; then
+    rm -f .lock
+elif [ "$1" = "on-copy" ]; then
+    [ -f .lock ] && exit 0
+    file="$(date +%s)"
+    cat >"$file"
+    ext="$(file --mime-type "$file" | cut -d' ' -f2 | cut -d'/' -f2)"
+    mv "$file" "$file.$ext"
+    fdupes -idN .
+    find . -type f -size 0 -delete
+    find . -type f -size +10000000c -delete
+    find . -type f -print0 | sort -zn | head -z -n -1000 | xargs -r -0 rm
+elif [ "$1" = "dmenu" ]; then
+    fzf_preview="--preview-window=down:70%:wrap --preview='[ -f {} ] && viu -h 27 {} 2>/dev/null || echo {} | bat -l bash --color always -pp'"
+    find . -type f -print0 | sort -znr | while IFS= read -r -d '' file; do
+        if [[ "$file" =~ \.(plain|x-python)$ ]]; then
+            cat "$file"
+        else
+            printf '%s' "$file"
+        fi
+        printf '\0'
+    done | dmenu -0 -p clipboard -f "$fzf_preview" | {
+        read -r -d '' result
+        if [ -z "$result" ]; then
+            exit 0
+        elif [ -f "$result" ]; then
+            wl-copy <"$result"
+        else
+            printf '%s' "$result" | sed -e 's/[[:space:]]*$//' | sed -Ez 's/\s+$//' | wl-copy
+        fi
+    }
+else
+    echo >&2 "Usage: $0 <daemon|lock|unlock|on-copy|dmenu>"
+    exit 1
+fi
