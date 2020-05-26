@@ -7,7 +7,7 @@ This is a simple wrapper over [wl-clipboard](https://github.com/bugaevc/wl-clipb
 - Preview window for multi-line entries (even somewhat colorized)
 - Picture preview using kitty icat protocol
 
-![demo](https://user-images.githubusercontent.com/1177900/82594404-51f25800-9ba4-11ea-9242-0278100964ea.gif)
+![demo](https://user-images.githubusercontent.com/1177900/82936718-4da4b100-9f8f-11ea-9dd5-c49b0726e825.gif)
 
 ## Dependencies
 
