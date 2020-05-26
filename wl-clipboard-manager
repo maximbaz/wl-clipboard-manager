@@ -21,7 +21,6 @@ elif [ "$1" = "on-copy" ]; then
     find . -type f -size +10000000c -delete
     find . -type f -print0 | sort -zn | head -z -n -10000 | xargs -r -0 rm
 elif [ "$1" = "dmenu" ]; then
-    fzf_preview="--preview-window=down:70%:wrap --preview='[ -f {} ] && viu -h 27 {} 2>/dev/null || echo {} | bat -l bash --color always -pp'"
     find . -type f -printf '%P\0' | sort -znr | while IFS= read -r -d '' file; do
         if [[ "$file" =~ \.(plain|x-python)$ ]]; then
             cat "$file"
@@ -29,7 +28,7 @@ elif [ "$1" = "dmenu" ]; then
             printf '%s' "$file"
         fi
         printf '\0'
-    done | dmenu -0 -p clipboard -f "$fzf_preview" | {
+    done | dmenu -0 -p clipboard -r "$(realpath "$0") preview" | {
         read -r -d '' result
         if [ -z "$result" ]; then
             exit 0
@@ -39,7 +38,13 @@ elif [ "$1" = "dmenu" ]; then
             printf '%s' "$result" | sed -e 's/[[:space:]]*$//' | sed -Ez 's/\s+$//' | wl-copy
         fi
     }
+elif [ "$1" = "preview" ]; then
+    if [ -f "$2" ]; then
+        kitty +kitten icat --silent --stdin=no "$2"
+    else
+        echo "$2" | bat -l bash --color always -pp
+    fi
 else
-    echo >&2 "Usage: $0 <daemon|lock|unlock|on-copy|dmenu>"
+    echo >&2 "Usage: $0 <daemon|lock|unlock|on-copy|dmenu|preview>"
     exit 1
 fi
