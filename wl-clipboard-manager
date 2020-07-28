@@ -13,10 +13,10 @@ elif [ "$1" = "unlock" ]; then
 elif [ "$1" = "on-copy" ]; then
     [ -f .lock ] && exit 0
     file="$(date +%s)"
-    cat >"$file"
+    cat > "$file"
     ext="$(file --mime-type "$file" | cut -d' ' -f2 | cut -d'/' -f2)"
     mv "$file" "$file.$ext"
-    fdupes -idN .
+    fdupes -idNq .
     find . -type f -size 0 -delete
     find . -type f -size +10000000c -delete
     find . -type f -print0 | sort -zn | head -z -n -10000 | xargs -r -0 rm
@@ -33,7 +33,7 @@ elif [ "$1" = "dmenu" ]; then
         if [ -z "$result" ]; then
             exit 0
         elif [ -f "$result" ]; then
-            wl-copy <"$result"
+            wl-copy < "$result"
         else
             printf '%s' "$result" | sed -e 's/[[:space:]]*$//' | sed -Ez 's/\s+$//' | wl-copy
         fi
