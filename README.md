@@ -16,7 +16,8 @@ It is currently heavily dependent on specific tools that I use, but I don't oppo
 - [dmenu-term](https://github.com/maximbaz/dmenu-term) - my own `dmenu` implementation that allows providing `\0`-separated strings (important for multi-line entries) and custom preview (for colorizing the text, or image preview)
 - [bat](https://github.com/sharkdp/bat) - for colorizing text
 - [fzf](https://github.com/junegunn/fzf) - current preview syntax depends on `--preview-window` from `fzf`
-- [fdupes](https://github.com/adrianlopezroche/fdupes) - to delete duplicate entries
+- [sqlite3](https://www.sqlite.org) - to store clipboard entries
+- [python](https://www.python.org) - to retrieve entries from database
 
 ## Installation
 
