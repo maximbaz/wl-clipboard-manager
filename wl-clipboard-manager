@@ -1,6 +1,6 @@
 #!/bin/bash
 
-workdir="${XDG_DATA_HOME:-$HOME/.local/share/wl-clipboard-manager}"
+workdir="${XDG_DATA_HOME:-$HOME/.local/share}/wl-clipboard-manager"
 mkdir -p "$workdir"
 cd "$workdir"
 
